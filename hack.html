@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <style>
+        body {
+            background-color:pink ;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #808080;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #43b7fd;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #ecf0f1;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #34495e;
+            color: white;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #3498db;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color:red ;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: pink;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Loan Calculator</h1>
+        
+        <p>Amount:</p>
+        <input id="amount" type="number" placeholder="Enter amount" onchange="Calculate()">
+
+        <p>Interest Rate (%):</p>
+        <input id="rate" type="number" placeholder="Enter interest rate" onchange="Calculate()">
+
+        <p>Months to Pay:</p>
+        <input id="months" type="number" placeholder="Enter months" onchange="Calculate()">
+
+        <button onclick="Calculate()">Calculate EMI</button>
+
+        <h2 id="total">EMI: ₹0.00</h2>
+    </div>
+
+    <script>
+        function Calculate() {
+            // Extracting values from input fields
+            const amount = parseFloat(document.querySelector("#amount").value);
+            const rate = parseFloat(document.querySelector("#rate").value);
+            const months = parseInt(document.querySelector("#months").value);
+
+            // Validating input
+            if (!amount || !rate || !months || months <= 0) {
+                document.querySelector("#total").innerHTML = "Please fill all fields correctly.";
+                return;
+            }
+
+            // Calculating interest per month
+            const interest = (amount * (rate * 0.01)) / 12;
+
+            // Calculating the EMI
+            const emi = ((amount / months) + interest).toFixed(2);
+
+            // Display the result
+            document.querySelector("#total").innerHTML = "EMI: ₹" + emi;
+        }
+    </script>
+
+</body>
+</html>
